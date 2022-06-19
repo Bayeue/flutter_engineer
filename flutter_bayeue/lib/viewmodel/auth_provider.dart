@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter_bayeue/model/auth_api.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -10,7 +11,12 @@ class AuthProvider with ChangeNotifier {
   }
 
   login(email, password) async {
-    await AuthApi.login(email, password);
+    var response = await AuthApi.login(email, password);
+    if (response != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   register(
@@ -19,6 +25,16 @@ class AuthProvider with ChangeNotifier {
     phone,
     password,
   ) async {
-    await AuthApi.register(nama, email, phone, password);
+    print('object');
+    await AuthApi.register1(nama, email, phone, password);
+    print('object');
+  }
+
+  validation(
+    code,
+  ) async {
+    print('object');
+    await AuthApi.validation(code);
+    print('object');
   }
 }

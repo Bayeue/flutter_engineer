@@ -1,4 +1,0 @@
-#Fri Jun 17 20:32:49 WIB 2022
-base.0=/home/alfath/Downloads/flutter_engineer/flutter_bayeue/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

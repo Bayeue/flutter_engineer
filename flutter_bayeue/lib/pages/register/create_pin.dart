@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bayeue/pages/home/home_page.dart';
 
 class CreatePinPage extends StatefulWidget {
   const CreatePinPage({Key? key}) : super(key: key);
@@ -10,13 +9,13 @@ class CreatePinPage extends StatefulWidget {
 
 class _CreatePinPageState extends State<CreatePinPage> {
   final fromKey = GlobalKey<FormState>();
-  final _createPinController = TextEditingController();
+  final _CreatePinController = TextEditingController();
   final _pinconfirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 227, 244, 254),
+      backgroundColor: const Color.fromARGB(255, 240, 244, 247),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -57,7 +56,7 @@ class _CreatePinPageState extends State<CreatePinPage> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  controller: _createPinController,
+                  controller: _CreatePinController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Masukan Pin';
@@ -88,7 +87,7 @@ class _CreatePinPageState extends State<CreatePinPage> {
                     if (value!.isEmpty) {
                       return 'Masukan Pin';
                     }
-                    if (value != _createPinController.text) {
+                    if (value != _CreatePinController.text) {
                       return 'Pin Tidak sama';
                     }
                     return null;
@@ -118,11 +117,9 @@ class _CreatePinPageState extends State<CreatePinPage> {
                   ),
                   onPressed: (() {
                     if (fromKey.currentState!.validate()) {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const HomePage();
-                        },
-                      ), (route) => false);
+                      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
+                      //   return HomePage();
+                      // },), (route) => false);
                     }
                   }),
                   child: const Text(

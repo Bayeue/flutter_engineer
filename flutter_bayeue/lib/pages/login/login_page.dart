@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bayeue/pages/home/navigation_bar.dart';
 import 'package:flutter_bayeue/pages/login/lupa_password_page.dart';
 import 'package:flutter_bayeue/pages/register/register_page.dart';
+
 import 'package:flutter_bayeue/viewmodel/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 227, 244, 254),
+      backgroundColor: const Color.fromARGB(255, 240, 244, 247),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -90,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Masukan Password';
-                      } else if (value.length < 6) {
+                      } else if (value.length < 5) {
                         return 'Masukan minimal 6 karakter';
                       }
                       return null;
@@ -156,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 80,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -167,13 +169,57 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     onPressed: (() async {
                       if (fromKey.currentState!.validate()) {
-                        await authProvider.login(
+                        bool response = await authProvider.login(
                             _emailController.text, _passwordController.text);
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (ctx) {
-                          return Navigationpage();
-                        }), (route) => false);
+
+                        if (response == true) {
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushAndRemoveUntil(context,
+                              MaterialPageRoute(builder: (ctx) {
+                            return const Navigationpage();
+                          }), (route) => false);
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (ctx) {
+                                return Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 15),
+                                      padding: const EdgeInsets.all(10),
+                                      height: 140,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/notification.png',
+                                            height: 60,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Text(
+                                            'Gagal Login!',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 20),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                              'Email dan Password Tidak Valid')
+                                        ],
+                                      )),
+                                );
+                              });
+                        }
                       }
                     }),
                     child: const Text(

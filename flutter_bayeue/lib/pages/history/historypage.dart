@@ -6,7 +6,7 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('salal')),
+      backgroundColor: Color.fromARGB(255, 247, 240, 240),
     );
   }
 }
